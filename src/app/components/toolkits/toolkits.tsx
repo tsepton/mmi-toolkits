@@ -68,7 +68,7 @@ function getBody() {
   };
 
   const body = toolkits.map((tool, index) => (
-    <tr key={index}>
+    <tr key={index} className="hover:bg-zinc-200">
       <td className="max-w-max" title={tool.reference}>{tool.reference}</td>
       <td className="text-center" title={String(tool.year)}>{tool.year}</td>
       <td className="text-center" title={tool.docType}>{tool.docType}</td>
