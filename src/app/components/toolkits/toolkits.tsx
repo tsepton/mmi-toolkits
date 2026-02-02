@@ -23,19 +23,20 @@ function getHeader() {
         <th title="Conference Paper Type">Paper Type</th>
         <th>Artifact</th>
         <th>Application Domain</th>
+
         <th colSpan={4}>Input Modalities</th>
         <th colSpan={4}>CASE</th>
         <th>Fusion type</th>
         <th>Fusion level</th>
+
+        <th title="Programming approach">Prog. App.</th>
+        <th colSpan={2}>Language</th>
+        <th>Coupling</th>
+        <th>Licence</th>
+        <th>Last Commit Date</th>
       </tr>
       <tr>
-        <th />
-        <th />
-        <th />
-        <th />
-        <th />
-        <th />
-        <th />
+        <th colSpan={7} />
 
         <th className="text-center text-sm">NO</th>
         <th className="text-center text-sm">V</th>
@@ -47,8 +48,12 @@ function getHeader() {
         <th className="text-center text-sm">S</th>
         <th className="text-center text-sm">E</th>
 
-        <th></th>
-        <th></th>
+        <th colSpan={3} />
+
+        <th className="text-center text-sm">Programming</th>
+        <th className="text-center text-sm">Description</th>
+
+        <th colSpan={3} />
       </tr>
     </>
   );
@@ -69,9 +74,15 @@ function getBody() {
 
   const body = toolkits.map((tool, index) => (
     <tr key={index} className="hover:bg-zinc-200">
-      <td className="max-w-max" title={tool.reference}>{tool.reference}</td>
-      <td className="text-center" title={String(tool.year)}>{tool.year}</td>
-      <td className="text-center" title={tool.docType}>{tool.docType}</td>
+      <td className="max-w-max" title={tool.reference}>
+        {tool.reference}
+      </td>
+      <td className="text-center" title={String(tool.year)}>
+        {tool.year}
+      </td>
+      <td className="text-center" title={tool.docType}>
+        {tool.docType}
+      </td>
       <td title={tool.venue}>{tool.venue}</td>
       <td title={tool.confPaperType ?? ""}>{tool.confPaperType}</td>
       <td title={tool.artifact ?? ""}>{tool.artifact}</td>
@@ -91,6 +102,13 @@ function getBody() {
 
       <td>{tool.fusionType.join(", ")}</td>
       <td>{tool.fusionLevel.join(", ")}</td>
+
+      <td title={tool.programmingApproach}>{tool.programmingApproach}</td>
+      <td title={tool.programmingLanguage ?? ""}>{tool.programmingLanguage}</td>
+      <td title={tool.descriptionLanguage ?? ""}>{tool.descriptionLanguage}</td>
+      <td title={tool.coupling ?? ""}>{tool.coupling}</td>
+      <td title={tool.licence ?? ""}>{tool.licence}</td>
+      <td title={tool.lastCommitDate ?? ""}>{tool.lastCommitDate}</td>
     </tr>
   ));
   return <tbody>{body}</tbody>;
