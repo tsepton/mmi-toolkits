@@ -7,7 +7,17 @@ th,
 td {
   white-space: nowrap;
   vertical-align: middle;
-  max-width: 7em;
+  max-width: 10em;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+th {
+    padding: 0 0.5em 1em 0; /* top | right | bottom | left */
+    line-height: 15px;
+}
+
+td {
+    padding: 0 0.5em 0 0; /* top | right | bottom | left */
+    line-height: 1.5em;
 }

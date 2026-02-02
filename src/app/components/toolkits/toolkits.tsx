@@ -13,24 +13,22 @@ export default function Table() {
 function getHeader() {
   const header = (
     <>
-      <tr>
+      <tr className="text-left">
         <th>Reference</th>
-        <th className="w-16" key="year">
-          Year
-        </th>
+        <th key="year">Year</th>
         <th title="Document Type">Type</th>
         <th>Venue</th>
         <th title="Conference Paper Type">Paper Type</th>
         <th>Artifact</th>
-        <th>Application Domain</th>
+        <th title="Application Domain">App. Domain</th>
 
-        <th colSpan={4}>Input Modalities</th>
-        <th colSpan={4}>CASE</th>
-        <th>Fusion type</th>
+        <th className="text-center min-w-[150px]" title="Input Modalities" colSpan={4}>Modalities</th>
+        <th className="text-center min-w-[150px]" colSpan={4}>CASE</th>
+        <th className="min-w-[150px]">Fusion type</th>
         <th>Fusion level</th>
 
         <th title="Programming approach">Prog. App.</th>
-        <th colSpan={2}>Language</th>
+        <th className="text-center" colSpan={2}>Language</th>
         <th>Coupling</th>
         <th>Licence</th>
         <th title="Last Commit Date">Last Commit</th>
