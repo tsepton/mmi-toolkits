@@ -1,0 +1,13 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  white-space: nowrap;
+  vertical-align: middle;
+  max-width: 1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

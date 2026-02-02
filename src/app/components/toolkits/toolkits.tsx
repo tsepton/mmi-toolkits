@@ -1,4 +1,7 @@
-export default function ToolkitsTable() {
+import React from "react";
+import "./toolkits.css"; // ← import the stylesheet
+
+export default function Table() {
   const header =
     toolkits.length > 0
       ? [
@@ -28,13 +31,13 @@ export default function ToolkitsTable() {
 
   const body = toolkits.map((tool, index) => (
     <tr key={index}>
-      <td>{tool.reference}</td>
-      <td>{tool.year}</td>
-      <td>{tool.docType}</td>
-      <td>{tool.venue}</td>
-      <td>{tool.confPaperType}</td>
-      <td>{tool.artifact}</td>
-      <td>{tool.applicationDomain}</td>
+      <td title={tool.reference}>{tool.reference}</td>
+      <td title={String(tool.year)}>{tool.year}</td>
+      <td title={tool.docType}>{tool.docType}</td>
+      <td title={tool.venue}>{tool.venue}</td>
+      <td title={tool.confPaperType ?? ""}>{tool.confPaperType}</td>
+      <td title={tool.artifact ?? ""}>{tool.artifact}</td>
+      <td title={tool.applicationDomain}>{tool.applicationDomain}</td>
     </tr>
   ));
 
