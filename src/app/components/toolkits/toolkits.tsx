@@ -2,53 +2,98 @@ import React from "react";
 import "./toolkits.css"; // ← import the stylesheet
 
 export default function Table() {
-  const header =
-    toolkits.length > 0
-      ? [
-          <th className="border border-gray-400" key="reference">
-            Reference
-          </th>,
-          <th className="border border-gray-400" key="year">
-            Year
-          </th>,
-          <th className="border border-gray-400" key="docType">
-            Doc. Type
-          </th>,
-          <th className="border border-gray-400" key="venue">
-            Venue
-          </th>,
-          <th className="border border-gray-400" key="confPaperType">
-            Conf. Paper Type
-          </th>,
-          <th className="border border-gray-400" key="artifact">
-            Artifact
-          </th>,
-          <th className="border border-gray-400" key="applicationDomain">
-            Application Domain
-          </th>,
-        ]
-      : [];
+  return (
+    <table className="table-auto">
+      {getHeader()}
+      {getBody()}
+    </table>
+  );
+}
+
+function getHeader() {
+  const header = (
+    <>
+      <tr>
+        <th>Reference</th>
+        <th className="w-16" key="year">
+          Year
+        </th>
+        <th title="Document Type">Type</th>
+        <th>Venue</th>
+        <th title="Conference Paper Type">Paper Type</th>
+        <th>Artifact</th>
+        <th>Application Domain</th>
+        <th colSpan={4}>Input Modalities</th>
+        <th colSpan={4}>CASE</th>
+        <th>Fusion type</th>
+        <th>Fusion level</th>
+      </tr>
+      <tr>
+        <th />
+        <th />
+        <th />
+        <th />
+        <th />
+        <th />
+        <th />
+
+        <th className="text-center text-sm">NO</th>
+        <th className="text-center text-sm">V</th>
+        <th className="text-center text-sm">A</th>
+        <th className="text-center text-sm">K</th>
+
+        <th className="text-center text-sm">C</th>
+        <th className="text-center text-sm">A</th>
+        <th className="text-center text-sm">S</th>
+        <th className="text-center text-sm">E</th>
+
+        <th></th>
+        <th></th>
+      </tr>
+    </>
+  );
+
+  return <thead>{header}</thead>;
+}
+
+function getBody() {
+  const getFusionSupport = (
+    tool: Toolkit,
+    key: keyof Toolkit["fusionSupport"],
+  ) => {
+    const value = tool.fusionSupport[key];
+    if (value === true) return "x";
+    if (value === false) return "";
+    return <span className="text-xs">N/A</span>;
+  };
 
   const body = toolkits.map((tool, index) => (
     <tr key={index}>
-      <td title={tool.reference}>{tool.reference}</td>
-      <td title={String(tool.year)}>{tool.year}</td>
-      <td title={tool.docType}>{tool.docType}</td>
+      <td className="max-w-max" title={tool.reference}>{tool.reference}</td>
+      <td className="text-center" title={String(tool.year)}>{tool.year}</td>
+      <td className="text-center" title={tool.docType}>{tool.docType}</td>
       <td title={tool.venue}>{tool.venue}</td>
       <td title={tool.confPaperType ?? ""}>{tool.confPaperType}</td>
       <td title={tool.artifact ?? ""}>{tool.artifact}</td>
       <td title={tool.applicationDomain}>{tool.applicationDomain}</td>
+
+      {/* modalities columns (second table) */}
+      <td className="text-center">{tool.inputModalities.NO ? "x" : ""}</td>
+      <td className="text-center">{tool.inputModalities.V ? "x" : ""}</td>
+      <td className="text-center">{tool.inputModalities.A ? "x" : ""}</td>
+      <td className="text-center">{tool.inputModalities.K ? "x" : ""}</td>
+
+      {/* fusion support columns (second table) */}
+      <td className="text-center">{getFusionSupport(tool, "C")}</td>
+      <td className="text-center">{getFusionSupport(tool, "A")}</td>
+      <td className="text-center">{getFusionSupport(tool, "S")}</td>
+      <td className="text-center">{getFusionSupport(tool, "E")}</td>
+
+      <td>{tool.fusionType.join(", ")}</td>
+      <td>{tool.fusionLevel.join(", ")}</td>
     </tr>
   ));
-
-  return (
-    <table className="table-auto border border-gray-400 bg-white">
-      <thead>
-        <tr>{header}</tr>
-      </thead>
-      <tbody>{body}</tbody>
-    </table>
-  );
+  return <tbody>{body}</tbody>;
 }
 
 type Toolkit = {
@@ -67,10 +112,10 @@ type Toolkit = {
     T: boolean;
   };
   fusionSupport: {
-    C: boolean | "N/A";
-    A: boolean | "N/A";
-    S: boolean | "N/A";
-    E: boolean | "N/A";
+    C: boolean | undefined;
+    A: boolean | undefined;
+    S: boolean | undefined;
+    E: boolean | undefined;
   };
   fusionType: string[];
   fusionLevel: string[];
@@ -85,7 +130,6 @@ type Toolkit = {
 // TODO - check the data integrity (transformed using a llm and our latex tables)
 const toolkits: Toolkit[] = [
   {
-    // --------------------------------------------------------------------
     reference: "Hoste2011Mudra",
     year: 2011,
     docType: "CP",
@@ -110,7 +154,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Cutugno2012Multimodal",
     year: 2012,
     docType: "CP",
@@ -133,7 +176,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Hak2012Manitou",
     year: 2012,
     docType: "CP",
@@ -156,7 +198,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Lo2012IChameleon",
     year: 2012,
     docType: "CP",
@@ -179,7 +220,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Tan2012Extending",
     year: 2012,
     docType: "CP",
@@ -202,7 +242,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Russ2013MMIR",
     year: 2013,
     docType: "CP",
@@ -225,7 +264,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Shen2013HCI2",
     year: 2013,
     docType: "JA",
@@ -248,7 +286,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Takegoshi2014Development",
     year: 2014,
     docType: "CP",
@@ -271,7 +308,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Cuenca2015Hasselt",
     year: 2015,
     docType: "CP",
@@ -294,7 +330,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Seiger2015Framework",
     year: 2015,
     docType: "CP",
@@ -317,7 +352,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Kazepis2016FIRMA",
     year: 2016,
     docType: "CP",
@@ -340,7 +374,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Bohus2017Rapid",
     year: 2017,
     docType: "CP",
@@ -363,7 +396,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Lee2017MIDASM",
     year: 2017,
     docType: "CP",
@@ -387,7 +419,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Seo2017Unified",
     year: 2017,
     docType: "JA",
@@ -410,7 +441,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Vidakis2017Multimodal",
     year: 2017,
     docType: "CP",
@@ -420,7 +450,7 @@ const toolkits: Toolkit[] = [
     applicationDomain: "Blended learning",
 
     inputModalities: { NO: false, V: false, A: true, K: true, T: true },
-    fusionSupport: { C: "N/A", A: "N/A", S: "N/A", E: "N/A" },
+    fusionSupport: { C: undefined, A: undefined, S: undefined, E: undefined },
     fusionType: ["symbolic"],
     fusionLevel: ["late"],
 
@@ -433,7 +463,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Sarmah2020Geno",
     year: 2020,
     docType: "CP",
@@ -456,7 +485,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Barz2021Multisensorpipeline",
     year: 2021,
     docType: "CP",
@@ -479,7 +507,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Guedira2021Multimodal",
     year: 2021,
     docType: "CP",
@@ -502,7 +529,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Septon2024Exploiting",
     year: 2024,
     docType: "CP",
@@ -525,7 +551,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Yang2024ReactGenie",
     year: 2024,
     docType: "CP",
@@ -548,7 +573,6 @@ const toolkits: Toolkit[] = [
   },
 
   {
-    // --------------------------------------------------------------------
     reference: "Han2025Dynamic",
     year: 2025,
     docType: "CP",
