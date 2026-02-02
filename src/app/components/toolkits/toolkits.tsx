@@ -33,7 +33,7 @@ function getHeader() {
         <th colSpan={2}>Language</th>
         <th>Coupling</th>
         <th>Licence</th>
-        <th>Last Commit Date</th>
+        <th title="Last Commit Date">Last Commit</th>
       </tr>
       <tr>
         <th colSpan={7} />
